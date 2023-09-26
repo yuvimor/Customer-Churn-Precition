@@ -51,10 +51,10 @@ def predict_churn(churn_history_count, monthly_bill, billing_to_usage_ratio, usa
         'Total_Usage_GB': [total_usage_gb],
         'Age': [age],
         'Tenure_Years': [tenure_years],
-        'Location_Houston': [1 if location == 'Houston' else 0],
-        'Location_Los_Angeles': [1 if location == 'Los Angeles' else 0],
-        'Location_Miami': [1 if location == 'Miami' else 0],
-        'Location_New_York': [1 if location == 'New York' else 0]
+        'Location_Houston': [1 if location_houston else 0],
+        'Location_Los_Angeles': [1 if location_los_angeles else 0],
+        'Location_Miami': [1 if location_miami else 0],
+        'Location_New_York': [1 if location_new_york else 0]
     })
 
     # Scale the numeric input data using Min-Max scaling
