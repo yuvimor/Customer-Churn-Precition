@@ -58,6 +58,8 @@ def predict_churn(churn_history_count, monthly_bill, billing_to_usage_ratio, usa
     # Use the loaded model to make predictions
     prediction = loaded_model.predict(input_data_scaled)
 
+    return prediction  # Return the prediction result
+
 # Get predictions when the user clicks a button
 if st.button("Predict"):
     result = predict_churn(churn_history_count, monthly_bill, billing_to_usage_ratio, usage_per_billing_cycle, total_usage_gb, age, tenure_years, location)
