@@ -14,11 +14,12 @@ X_train = pd.read_csv('train_data.csv')
 label_encoder = LabelEncoder()
 
 # Fit the LabelEncoder with training data for 'Location'
-label_encoder.fit(X_train['Location']) 
+X_train['Location'] = label_encoder.fit_transform(X_train['Location'])
 
-# Load the MinMaxScaler and fit it to your training data
+# Load the MinMaxScaler and fit it to your training data for numeric columns
+numeric_columns = ['Age', 'Monthly_Bill', 'Total_Usage_GB', 'Churn_History_Count', 'Usage_Per_Billing_Cycle', 'Location']
 scaler = MinMaxScaler()
-scaler.fit(X_train)  
+X_train[numeric_columns] = scaler.fit_transform(X_train[numeric_columns])
 
 # Define the Streamlit app
 st.title("Customer Churn Prediction")
@@ -51,11 +52,11 @@ def predict_churn(churn_history_count, monthly_bill, billing_to_usage_ratio, usa
     # Label encode the 'Location' column
     input_data['Location'] = label_encoder.transform(input_data['Location'])
 
-    # Scale the input data using Min-Max scaling
-    input_data_scaled = scaler.transform(input_data)
+    # Scale the numeric input data using Min-Max scaling
+    input_data[numeric_columns] = scaler.transform(input_data[numeric_columns])
 
     # Use the loaded model to make predictions
-    prediction = loaded_model.predict(input_data_scaled)
+    prediction = loaded_model.predict(input_data)
 
     return prediction  # Return the prediction result
 
