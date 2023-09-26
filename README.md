@@ -3,9 +3,9 @@
 This repository contains a customer churn prediction project. The project includes the following:
 
 * A Jupyter Notebook which follows the typical machine learning pipeline to develop a model.
-* A pickle file which contains the trained XGBoost Classifier model that can predict whether a customer is likely to churn or not
-* A Streamlit web application that allows users to interact with the model and make predictions.
-* A project report
+* A pickle file which contains the trained XGBoost Classifier model that can predict whether a customer is likely to churn or not.
+* A link to the Streamlit web application that allows users to interact with the model and make predictions.
+* A project report.
 
 **To use the project:**
 
