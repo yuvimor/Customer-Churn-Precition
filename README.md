@@ -30,7 +30,7 @@ streamlit run app.py
 2. Click the "Predict" button
 3. The model will predict whether the customer is likely to churn or not
 
-**Deployed Streamlit app link:** [https://yuvi-customer-churn-precition.streamlit.app/]
+**Deployed Streamlit app link:** https://yuvi-customer-churn-precition.streamlit.app/
 
 **Future work:**
 
