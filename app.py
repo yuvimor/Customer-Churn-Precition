@@ -37,8 +37,8 @@ location = st.selectbox("Location", ["Houston", "Los Angeles", "Miami","Chicago"
 # Define a function to make predictions
 def predict_churn(churn_history_count, monthly_bill, billing_to_usage_ratio, usage_per_billing_cycle, total_usage_gb, age, tenure_years, location):
   input_data = pd.DataFrame({
-    'Churn_History_Count': [churn_history_count],
-    'Monthly_Bill': [monthly_bill],
+    'Churn_History_Count': [churn_history_count],
+    'Monthly_Bill': [monthly_bill],
     'Billing_to_Usage_Ratio': [billing_to_usage_ratio],
     'Usage_Per_Billing_Cycle': [usage_per_billing_cycle],
     'Total_Usage_GB': [total_usage_gb],
