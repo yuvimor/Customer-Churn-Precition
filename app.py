@@ -16,11 +16,8 @@ label_encoder = LabelEncoder()
 # Fit the LabelEncoder with training data for 'Location'
 X_train['Location'] = label_encoder.fit_transform(X_train['Location'])
 
-# One-hot encode the 'Location' column
-X_train = pd.get_dummies(X_train, columns=['Location'], drop_first=True)
-
 # Load the MinMaxScaler and fit it to your training data for numeric columns
-numeric_columns = ['Churn_History_Count', 'Monthly_Bill', 'Billing_to_Usage_Ratio', 'Usage_Per_Billing_Cycle', 'Total_Usage_GB', 'Age', 'Tenure_Years']
+numeric_columns = ['Churn_History_Count', 'Monthly_Bill', 'Billing_to_Usage_Ratio', 'Usage_Per_Billing_Cycle', 'Total_Usage_GB', 'Age']
 scaler = MinMaxScaler()
 X_train[numeric_columns] = scaler.fit_transform(X_train[numeric_columns])
 
