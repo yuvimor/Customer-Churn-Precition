@@ -2,9 +2,16 @@
 import streamlit as st
 import joblib
 import pandas as pd
+from sklearn.preprocessing import LabelEncoder, MinMaxScaler
 
 # Load the saved XGBoost classifier model
 loaded_model = joblib.load('customer_churn_classifier.pkl')
+
+# Initialize LabelEncoder
+label_encoder = LabelEncoder()
+
+# Load the MinMaxScaler
+scaler = MinMaxScaler()
 
 # Define the Streamlit app
 st.title("Customer Churn Prediction")
@@ -34,10 +41,14 @@ def predict_churn(churn_history_count, monthly_bill, billing_to_usage_ratio, usa
         'Location': [location]
     })
 
-    # Use the loaded model to make predictions
-    prediction = loaded_model.predict(input_data)
+    # Label encode the 'Location' column
+    input_data['Location'] = label_encoder.transform(input_data['Location'])
 
-    return prediction[0]
+    # Scale the input data using Min-Max scaling
+    input_data_scaled = scaler.transform(input_data)
+
+    # Use the loaded model to make predictions
+    prediction = loaded_model.predict(input_data_scaled)
 
 # Get predictions when the user clicks a button
 if st.button("Predict"):
