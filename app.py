@@ -7,11 +7,16 @@ from sklearn.preprocessing import LabelEncoder, MinMaxScaler
 # Load the saved XGBoost classifier model
 loaded_model = joblib.load('customer_churn_classifier.pkl')
 
-# Initialize LabelEncoder
+# Load the MinMaxScaler and fit it to your training data
+scaler = MinMaxScaler()
+scaler.fit(X_train)  
+
+# Initialize LabelEncoder for Location
 label_encoder = LabelEncoder()
 
-# Load the MinMaxScaler
-scaler = MinMaxScaler()
+# Fit the LabelEncoder with training data for 'Location'
+label_encoder.fit(X_train['Location']) 
+
 
 # Define the Streamlit app
 st.title("Customer Churn Prediction")
