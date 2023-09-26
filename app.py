@@ -50,10 +50,10 @@ def predict_churn(churn_history_count, monthly_bill, billing_to_usage_ratio, usa
   })
 
   # Label encode the 'Location' column
-  input_data['Location'] = label_encoder.transform(input_data['Location'])
+  input_data['Location'] = label_encoder.fit_transform(input_data['Location'])
 
   # Scale the numeric input data using Min-Max scaling
-  input_data[numeric_columns] = scaler.transform(input_data[numeric_columns])
+  input_data[numeric_columns] = scaler.fit_transform(input_data[numeric_columns])
 
   # Use the loaded model to make predictions
   prediction = loaded_model.predict(input_data)
