@@ -10,16 +10,15 @@ loaded_model = joblib.load('customer_churn_classifier.pkl')
 # Load the training data from a CSV file 
 X_train = pd.read_csv('train_data.csv')
 
-# Load the MinMaxScaler and fit it to your training data
-scaler = MinMaxScaler()
-scaler.fit(X_train)  
-
 # Initialize LabelEncoder for Location
 label_encoder = LabelEncoder()
 
 # Fit the LabelEncoder with training data for 'Location'
 label_encoder.fit(X_train['Location']) 
 
+# Load the MinMaxScaler and fit it to your training data
+scaler = MinMaxScaler()
+scaler.fit(X_train)  
 
 # Define the Streamlit app
 st.title("Customer Churn Prediction")
