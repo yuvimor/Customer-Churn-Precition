@@ -16,8 +16,11 @@ label_encoder = LabelEncoder()
 # Fit the LabelEncoder with training data for 'Location'
 X_train['Location'] = label_encoder.fit_transform(X_train['Location'])
 
+# One-hot encode the 'Location' column
+X_train = pd.get_dummies(X_train, columns=['Location'], drop_first=True)
+
 # Load the MinMaxScaler and fit it to your training data for numeric columns
-numeric_columns = ['Age', 'Monthly_Bill', 'Total_Usage_GB', 'Churn_History_Count', 'Usage_Per_Billing_Cycle', 'Location']
+numeric_columns = ['Churn_History_Count', 'Monthly_Bill', 'Billing_to_Usage_Ratio', 'Usage_Per_Billing_Cycle', 'Total_Usage_GB', 'Age', 'Tenure_Years']
 scaler = MinMaxScaler()
 X_train[numeric_columns] = scaler.fit_transform(X_train[numeric_columns])
 
@@ -33,10 +36,15 @@ usage_per_billing_cycle = st.number_input("Usage per Billing Cycle")
 total_usage_gb = st.number_input("Total Usage GB")
 age = st.slider("Age", 18, 100, 30)
 tenure_years = st.number_input("Tenure Years")
-location = st.selectbox("Location", ["Houston", "Los Angeles", "Miami", "New York"])
+
+# Note that the 'Location' input is now a set of checkboxes for one-hot encoding
+location_houston = st.checkbox("Houston")
+location_los_angeles = st.checkbox("Los Angeles")
+location_miami = st.checkbox("Miami")
+location_new_york = st.checkbox("New York")
 
 # Define a function to make predictions
-def predict_churn(churn_history_count, monthly_bill, billing_to_usage_ratio, usage_per_billing_cycle, total_usage_gb, age, tenure_years, location):
+def predict_churn(churn_history_count, monthly_bill, billing_to_usage_ratio, usage_per_billing_cycle, total_usage_gb, age, tenure_years, location_houston, location_los_angeles, location_miami, location_new_york):
     # Prepare input data as a DataFrame
     input_data = pd.DataFrame({
         'Churn_History_Count': [churn_history_count],
@@ -46,11 +54,11 @@ def predict_churn(churn_history_count, monthly_bill, billing_to_usage_ratio, usa
         'Total_Usage_GB': [total_usage_gb],
         'Age': [age],
         'Tenure_Years': [tenure_years],
-        'Location': [location]
+        'Location_Houston': [location_houston],
+        'Location_Los_Angeles': [location_los_angeles],
+        'Location_Miami': [location_miami],
+        'Location_New_York': [location_new_york]
     })
-
-    # Label encode the 'Location' column
-    input_data['Location'] = label_encoder.transform(input_data['Location'])
 
     # Scale the numeric input data using Min-Max scaling
     input_data[numeric_columns] = scaler.transform(input_data[numeric_columns])
@@ -62,7 +70,7 @@ def predict_churn(churn_history_count, monthly_bill, billing_to_usage_ratio, usa
 
 # Get predictions when the user clicks a button
 if st.button("Predict"):
-    result = predict_churn(churn_history_count, monthly_bill, billing_to_usage_ratio, usage_per_billing_cycle, total_usage_gb, age, tenure_years, location)
+    result = predict_churn(churn_history_count, monthly_bill, billing_to_usage_ratio, usage_per_billing_cycle, total_usage_gb, age, tenure_years, location_houston, location_los_angeles, location_miami, location_new_york)
     if result == 1:
         st.write("Churn Prediction: Churn")
     else:
