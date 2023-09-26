@@ -7,6 +7,9 @@ from sklearn.preprocessing import LabelEncoder, MinMaxScaler
 # Load the saved XGBoost classifier model
 loaded_model = joblib.load('customer_churn_classifier.pkl')
 
+# Load the training data from a CSV file 
+X_train = pd.read_csv('train_data.csv')
+
 # Load the MinMaxScaler and fit it to your training data
 scaler = MinMaxScaler()
 scaler.fit(X_train)  
